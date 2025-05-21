@@ -1,10 +1,16 @@
 name = "sol-run-website"
+type = "javascript"
 compatibility_date = "2025-05-21"
 compatibility_flags = ["nodejs_compat"]
 
-# Remove the build section as it's handled by Cloudflare Pages
-# Remove the [build.upload] section as it's not needed
+# Specify the main entry point
+main = "workers-site/index.js"
 
 [site]
 bucket = ".next"
-# Remove entry-point as it's not needed for Pages deployments
+
+[build]
+command = "pnpm run build"
+
+[build.upload]
+format = "service-worker"

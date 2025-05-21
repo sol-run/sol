@@ -1,0 +1,9 @@
+{
+  "name": "sol-run-website-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for Sol Run Website",
+  "main": "index.js",
+  "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.0"
+  }
+}

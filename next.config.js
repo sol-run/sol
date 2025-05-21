@@ -33,10 +33,9 @@ const nextConfig = {
   // Ensure proper handling of static assets
   reactStrictMode: true,
 
-  // Add Cloudflare-specific configuration
+  // Remove the invalid experimental.runtime option
   experimental: {
-    // Use Edge runtime for better Cloudflare compatibility
-    runtime: "edge",
+    // Other valid experimental options can go here
   },
 }
 
