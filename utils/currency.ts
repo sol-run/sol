@@ -12,5 +12,3 @@ export function formatCurrency(solAmount: number, solDecimalPlaces = 4): string 
   const usdAmount = solToUsd(solAmount)
   return `${solAmount.toFixed(solDecimalPlaces)} SOL (${usdAmount.toFixed(2)} USD)`
 }
-
-export { formatCurrency, solToUsd, usdToSol }
