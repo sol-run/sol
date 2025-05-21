@@ -1,35 +1,35 @@
 {
   "version": 1,
   "include": ["/*"],
-  "exclude": ["/_next/*", "/api/*", "/static/*", "/*.ico", "/*.png", "/*.svg", "/*.jpg", "/*.json"],
+  "exclude": ["/_next/*", "/api/*", "/static/*", "/favicon.ico", "/robots.txt"],
   "routes": [
     {
-      "src": "/blog/[^/]+",
-      "dest": "/blog/[id]/index.html"
+      "src": "/blog/(?<id>[^/]+)/?$",
+      "dest": "/blog/[id].html"
     },
     {
-      "src": "/product/[^/]+",
-      "dest": "/product/[id]/index.html"
+      "src": "/creator/(?<username>[^/]+)/?$",
+      "dest": "/creator/[username].html"
     },
     {
-      "src": "/creator/[^/]+",
-      "dest": "/creator/[username]/index.html"
+      "src": "/edit-product/(?<id>[^/]+)/?$",
+      "dest": "/edit-product/[id].html"
     },
     {
-      "src": "/product-files/[^/]+",
-      "dest": "/product-files/[id]/index.html"
+      "src": "/product-access/(?<id>[^/]+)/?$",
+      "dest": "/product-access/[id].html"
     },
     {
-      "src": "/product-files-view/[^/]+",
-      "dest": "/product-files-view/[id]/index.html"
+      "src": "/product-files-view/(?<id>[^/]+)/?$",
+      "dest": "/product-files-view/[id].html"
     },
     {
-      "src": "/product-access/[^/]+",
-      "dest": "/product-access/[id]/index.html"
+      "src": "/product-files/(?<id>[^/]+)/?$",
+      "dest": "/product-files/[id].html"
     },
     {
-      "src": "/edit-product/[^/]+",
-      "dest": "/edit-product/[id]/index.html"
+      "src": "/product/(?<id>[^/]+)/?$",
+      "dest": "/product/[id].html"
     }
   ]
 }

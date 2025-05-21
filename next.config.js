@@ -32,11 +32,6 @@ const nextConfig = {
 
   // Ensure proper handling of static assets
   reactStrictMode: true,
-
-  // Disable server components for static export
-  experimental: {
-    // No experimental features needed
-  },
 }
 
 module.exports = nextConfig
