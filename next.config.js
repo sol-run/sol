@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Output as standalone to improve compatibility with Cloudflare
-  output: "standalone",
+  // Change to static output for Cloudflare compatibility
+  output: "export",
 
   // Disable type checking and linting during build for faster builds
   eslint: {
@@ -11,10 +11,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // External packages that should be processed by Next.js
-  serverExternalPackages: [],
-
-  // Optimize image handling for Cloudflare
+  // Optimize image handling for static export
   images: {
     unoptimized: true,
     domains: ["blob.v0.dev"],
@@ -33,10 +30,8 @@ const nextConfig = {
   // Ensure proper handling of static assets
   reactStrictMode: true,
 
-  // Remove experimental edge runtime as it's causing Node.js compatibility issues
-  experimental: {
-    // Remove runtime: "edge" as it's causing issues
-  },
+  // Add trailing slash for better static hosting
+  trailingSlash: true,
 }
 
 module.exports = nextConfig

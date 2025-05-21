@@ -1,6 +1,6 @@
 # Cloudflare Pages configuration
 [build]
-command = "pnpm run export"
+command = "pnpm run build"
 output_directory = "out"
 node_version = "18"
 
