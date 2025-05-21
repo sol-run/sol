@@ -6,6 +6,6 @@ pnpm run build
 
 # Deploy to Cloudflare Pages
 echo "Deploying to Cloudflare Pages..."
-npx wrangler pages deploy .next --project-name=sol-run-website
+npx wrangler pages deploy .next --project-name=sol2
 
 echo "Deployment complete!"

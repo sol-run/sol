@@ -1,68 +1,58 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler"
 
-/**
- * The DEBUG flag will do two things:
- * 1. We will skip caching on the edge, which makes it easier to debug
- * 2. We will return an error message on exception in your Response
- */
-const DEBUG = false
-
-/**
- * Handle requests to your domain
- */
-async function handleRequest(event) {
-  try {
-    // Get the static asset from KV
-    const options = {}
-    if (DEBUG) {
-      options.cacheControl = {
-        bypassCache: true,
-      }
-    }
-
-    const page = await getAssetFromKV(event, options)
-
-    // Allow headers to be altered
-    const response = new Response(page.body, page)
-
-    // Add security headers
-    response.headers.set("X-XSS-Protection", "1; mode=block")
-    response.headers.set("X-Content-Type-Options", "nosniff")
-    response.headers.set("X-Frame-Options", "DENY")
-    response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
-    response.headers.set(
-      "Content-Security-Policy",
-      "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; connect-src 'self' https:;",
-    )
-
-    return response
-  } catch (e) {
-    // If an error is thrown, handle it
-    if (DEBUG) {
-      return new Response(e.message || e.toString(), {
-        status: 500,
-      })
-    }
-
-    // Otherwise, serve the 404 page
-    try {
-      const notFoundResponse = await getAssetFromKV(event, {
-        mapRequestToAsset: (req) => new Request(`${new URL(req.url).origin}/404.html`, req),
-      })
-
-      return new Response(notFoundResponse.body, {
-        ...notFoundResponse,
-        status: 404,
-      })
-    } catch (e) {
-      return new Response("Not Found", { status: 404 })
-    }
-  }
+// Define default options
+const defaultOptions = {
+  ASSET_NAMESPACE: "__STATIC_CONTENT",
+  ASSET_MANIFEST: "__STATIC_CONTENT_MANIFEST",
+  cacheControl: {
+    browserTTL: 60 * 60 * 24 * 365, // 1 year
+    edgeTTL: 60 * 60 * 24 * 7, // 7 days
+    bypassCache: false,
+  },
+  defaultMimeType: "text/html",
 }
 
-/**
- * Handle all requests to your domain
- */
-addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event))
-})
+// Export default function for ES Module format Worker
+export default {
+  async fetch(request, env, ctx) {
+    try {
+      // Get the URL from the request
+      const url = new URL(request.url)
+
+      // Handle API routes or dynamic routes
+      if (url.pathname.startsWith("/api/")) {
+        // For API routes, you would implement your API logic here
+        return new Response(JSON.stringify({ message: "API route" }), {
+          headers: { "Content-Type": "application/json" },
+        })
+      }
+
+      // Serve static assets from KV
+      const options = {
+        ...defaultOptions,
+        mapRequestToAsset: (req) => {
+          // Handle Next.js dynamic routes
+          const url = new URL(req.url)
+
+          // If the URL doesn't have a file extension, serve index.html
+          if (!url.pathname.includes(".")) {
+            url.pathname = "/index.html"
+          }
+
+          return new Request(url.toString(), req)
+        },
+      }
+
+      return await getAssetFromKV(
+        {
+          request,
+          waitUntil: (promise) => ctx.waitUntil(promise),
+        },
+        options,
+      )
+    } catch (e) {
+      // Return 404 for missing assets
+      return new Response("Not Found", { status: 404 })
+    }
+  },
+}

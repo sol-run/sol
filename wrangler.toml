@@ -1,16 +1,13 @@
-name = "sol-run-website"
-type = "javascript"
+name = "sol2"
+main = "workers-site/index.js"
 compatibility_date = "2025-05-21"
 compatibility_flags = ["nodejs_compat"]
-
-# Specify the main entry point
-main = "workers-site/index.js"
-
-[site]
-bucket = ".next"
 
 [build]
 command = "pnpm run build"
 
-[build.upload]
-format = "service-worker"
+[site]
+bucket = ".next"
+
+[env.production]
+name = "sol2"

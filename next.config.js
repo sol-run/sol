@@ -33,9 +33,9 @@ const nextConfig = {
   // Ensure proper handling of static assets
   reactStrictMode: true,
 
-  // Remove the invalid experimental.runtime option
+  // Remove experimental edge runtime as it's causing Node.js compatibility issues
   experimental: {
-    // Other valid experimental options can go here
+    // Remove runtime: "edge" as it's causing issues
   },
 }
 
