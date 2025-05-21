@@ -1,5 +1,4 @@
 {
   "version": 1,
-  "include": [".next/cache/**", "node_modules/.cache/**"],
-  "exclude": []
+  "cache_directories": [".next/cache", "node_modules/.cache"]
 }

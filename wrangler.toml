@@ -1,20 +1,17 @@
 name = "sol-run-website"
 compatibility_date = "2025-05-21"
 
-# Configure the build process
 [build]
 command = "pnpm run build"
 
-# Configure the site assets
 [site]
 bucket = ".next"
 
-# Configure routes for production
 [env.production]
 routes = [
   { pattern = "/*", script = "index.js" }
 ]
 
-# Configure build upload format
+# Specify the correct output format for Cloudflare Pages
 [build.upload]
-format = "service-worker"
+format = "directory"

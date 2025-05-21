@@ -39,6 +39,7 @@ import { Input } from "@/components/ui/input"
 import { HomepageSettings } from "@/components/admin/HomepageSettings"
 import { UserDashboardManagement } from "@/components/admin/UserDashboardManagement"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
+// Fix the import to use the correct export from the hook
 import { useMobile } from "@/hooks/use-mobile"
 
 export default function AdminDashboard() {

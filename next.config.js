@@ -10,10 +10,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // Ensure compatibility with Cloudflare Pages
-  experimental: {
-    serverComponentsExternalPackages: [],
-  },
+  // Updated from experimental.serverComponentsExternalPackages
+  serverExternalPackages: [],
 
   // Optimize image handling for Cloudflare
   images: {
@@ -33,7 +31,7 @@ const nextConfig = {
 
   // Ensure proper handling of static assets
   reactStrictMode: true,
-  swcMinify: true,
+  // Removed swcMinify as it's no longer needed in Next.js 15.2.4
 }
 
 module.exports = nextConfig
