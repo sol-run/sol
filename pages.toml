@@ -1,0 +1,7 @@
+# Cloudflare Pages configuration
+[build]
+command = "pnpm run build"
+output_directory = ".next"
+
+[build.environment]
+NODE_VERSION = "20.x"
