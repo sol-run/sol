@@ -1,10 +1,12 @@
-"use client"
-
-import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { CalendarIcon, ChevronLeftIcon, ClockIcon, ShareIcon, TagIcon, UserIcon } from "lucide-react"
+
+export async function generateStaticParams() {
+  // This function tells Next.js which blog posts to pre-render
+  return [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }, { id: "5" }]
+}
 
 // Sample blog post data (same as in blog/page.tsx)
 const blogPosts = [
@@ -260,9 +262,7 @@ const blogPosts = [
   },
 ]
 
-export default function BlogPostPage() {
-  const params = useParams()
-  const router = useRouter()
+export default function BlogPostPage({ params }: { params: { id: string } }) {
   const postId = Number(params.id)
 
   const post = blogPosts.find((post) => post.id === postId)
@@ -272,9 +272,11 @@ export default function BlogPostPage() {
       <div className="container mx-auto px-4 py-12 text-center">
         <h1 className="text-3xl font-bold mb-4">Post Not Found</h1>
         <p className="mb-8">The blog post you're looking for doesn't exist or has been removed.</p>
-        <Button onClick={() => router.push("/blog")}>
-          <ChevronLeftIcon className="mr-2 h-4 w-4" />
-          Back to Blog
+        <Button asChild>
+          <Link href="/blog">
+            <ChevronLeftIcon className="mr-2 h-4 w-4" />
+            Back to Blog
+          </Link>
         </Button>
       </div>
     )
@@ -286,9 +288,11 @@ export default function BlogPostPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-8">
-        <Button variant="ghost" onClick={() => router.push("/blog")} className="mb-4">
-          <ChevronLeftIcon className="mr-2 h-4 w-4" />
-          Back to Blog
+        <Button asChild variant="ghost">
+          <Link href="/blog" className="mb-4">
+            <ChevronLeftIcon className="mr-2 h-4 w-4" />
+            Back to Blog
+          </Link>
         </Button>
       </div>
 

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Change to static output for Cloudflare compatibility
+  // Static export for Cloudflare compatibility
   output: "export",
 
   // Disable type checking and linting during build for faster builds
@@ -27,11 +27,16 @@ const nextConfig = {
     ],
   },
 
+  // Add trailing slash for better static hosting
+  trailingSlash: true,
+
   // Ensure proper handling of static assets
   reactStrictMode: true,
 
-  // Add trailing slash for better static hosting
-  trailingSlash: true,
+  // Disable server components for static export
+  experimental: {
+    // No experimental features needed
+  },
 }
 
 module.exports = nextConfig

@@ -1,5 +1,35 @@
 {
   "version": 1,
   "include": ["/*"],
-  "exclude": ["/_next/*", "/api/*", "/static/*", "/_vercel/*", "/_cloudflare/*", "/favicon.ico", "/robots.txt"]
+  "exclude": ["/_next/*", "/api/*", "/static/*", "/*.ico", "/*.png", "/*.svg", "/*.jpg", "/*.json"],
+  "routes": [
+    {
+      "src": "/blog/[^/]+",
+      "dest": "/blog/[id]/index.html"
+    },
+    {
+      "src": "/product/[^/]+",
+      "dest": "/product/[id]/index.html"
+    },
+    {
+      "src": "/creator/[^/]+",
+      "dest": "/creator/[username]/index.html"
+    },
+    {
+      "src": "/product-files/[^/]+",
+      "dest": "/product-files/[id]/index.html"
+    },
+    {
+      "src": "/product-files-view/[^/]+",
+      "dest": "/product-files-view/[id]/index.html"
+    },
+    {
+      "src": "/product-access/[^/]+",
+      "dest": "/product-access/[id]/index.html"
+    },
+    {
+      "src": "/edit-product/[^/]+",
+      "dest": "/edit-product/[id]/index.html"
+    }
+  ]
 }
