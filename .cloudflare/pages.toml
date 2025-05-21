@@ -1,0 +1,14 @@
+# Cloudflare Pages configuration
+[build]
+command = "pnpm run build"
+output_directory = ".next"
+node_version = "18"
+
+[build.environment]
+NODE_VERSION = "18"
+
+[site]
+bucket = ".next"
+
+[env.production]
+NODE_ENV = "production"

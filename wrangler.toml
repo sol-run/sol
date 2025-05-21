@@ -1,17 +1,10 @@
 name = "sol-run-website"
 compatibility_date = "2025-05-21"
+compatibility_flags = ["nodejs_compat"]
 
-[build]
-command = "pnpm run build"
+# Remove the build section as it's handled by Cloudflare Pages
+# Remove the [build.upload] section as it's not needed
 
 [site]
 bucket = ".next"
-
-[env.production]
-routes = [
-  { pattern = "/*", script = "index.js" }
-]
-
-# Specify the correct output format for Cloudflare Pages
-[build.upload]
-format = "directory"
+# Remove entry-point as it's not needed for Pages deployments

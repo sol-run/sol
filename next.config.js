@@ -3,6 +3,7 @@ const nextConfig = {
   // Output as standalone to improve compatibility with Cloudflare
   output: "standalone",
 
+  // Disable type checking and linting during build for faster builds
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -10,7 +11,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // Updated from experimental.serverComponentsExternalPackages
+  // External packages that should be processed by Next.js
   serverExternalPackages: [],
 
   // Optimize image handling for Cloudflare
@@ -31,7 +32,12 @@ const nextConfig = {
 
   // Ensure proper handling of static assets
   reactStrictMode: true,
-  // Removed swcMinify as it's no longer needed in Next.js 15.2.4
+
+  // Add Cloudflare-specific configuration
+  experimental: {
+    // Use Edge runtime for better Cloudflare compatibility
+    runtime: "edge",
+  },
 }
 
 module.exports = nextConfig
